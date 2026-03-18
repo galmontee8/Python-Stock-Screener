@@ -11,5 +11,7 @@ Quantitative Audit Engine: Calculates year-over-year (YoY) growth and solvency r
 Data Validation Pipeline: Automatically categorizes companies into "Gold Standard" (full history), "Watch List" (new/incomplete), or "Skipped" (filing errors).
 ## Key Metrics Calculated 
 The screener uses raw financial statements to derive: ROIC (Return on Invested Capital): $\frac{\text{Net Income}}{\text{Debt} + \text{Equity}}$ — measures capital efficiency.
+
 Free Cash Flow (FCF): $\text{Operating Cash Flow} - \text{CapEx}$ determines actual liquidity.
+
 Debt-to-EBITDA: Measures leverage by reconstructing EBITDA from Net Income, Interest, Taxes, and Depreciation.YoY Revenue & Earnings Growth: Identifies fundamental momentum.
