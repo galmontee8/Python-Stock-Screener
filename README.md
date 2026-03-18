@@ -1,6 +1,14 @@
 # Python-Stock-Screener
 ## Overview
 This project is a high-performance data extraction and financial analysis tool built to audit the sp-600-with-ciks index. By interfacing directly with the SEC EDGAR API, the script pulls raw XBRL (eXtensible Business Reporting Language) facts to calculate institutional-grade valuation metrics that aren't always available on retail platforms.
+## Data Source & Indexing
+The core of this audit is built around the sp-600-with-ciks.csv dataset.
+
+Target Index: S&P 600 Small-Cap Index.
+
+Identifier Mapping: The script utilizes a pre-mapped CSV of tickers and their corresponding Central Index Keys (CIK) to ensure 100% accuracy when querying the SEC EDGAR database.
+
+Normalization: Includes a custom pipeline to pad CIKs with leading zeros, meeting the SEC’s strict 10-digit string requirement for RESTful API calls.
 ## Core Features
 Automated SEC Data Retrieval: Programmatically fetches companyfacts JSON data using normalized CIK (Central Index Key) identifiers.
 
