@@ -1,14 +1,22 @@
 # Python-Stock-Screener
 ## Overview
-This project is a high-performance data extraction and financial analysis tool built to audit the sp-600-with-ciks index. By interfacing directly with the SEC EDGAR API, the script pulls raw XBRL (eXtensible Business Reporting Language) facts to calculate institutional-grade valuation metrics that aren't always available on retail platforms.
-## Data Source & Indexing
-The core of this audit is built around the sp-600-with-ciks.csv dataset.
+This project is a high-performance data extraction and financial analysis tool built to audit the S&P 600 index. By interfacing directly with the SEC EDGAR API, the script pulls raw XBRL (eXtensible Business Reporting Language) facts to calculate institutional-grade valuation metrics that aren't always available on retail platforms.
+## Data Validation & Output Segmentation
+The core logic of this screener is built on comparative analytics. To calculate growth and efficiency ratios, the script segments the S&P 600 (sp-600-with-ciks.csv) into two distinct groups based on available documentation:
 
-Target Index: S&P 600 Small-Cap Index.
+### 1. Gold Standard Results (gold_standard_results.csv)
+These are the companies with enough data for a full quantitative audit.
 
-Identifier Mapping: The script utilizes a pre-mapped CSV of tickers and their corresponding Central Index Keys (CIK) to ensure 100% accuracy when querying the SEC EDGAR database.
+Criteria: Companies with at least two SEC filings (e.g., two 10-K annual reports).
 
-Normalization: Includes a custom pipeline to pad CIKs with leading zeros, meeting the SEC’s strict 10-digit string requirement for RESTful API calls.
+Why it matters: Two filings provide the necessary data points to calculate Year-over-Year (YoY) Growth, ROIC, and Debt-to-EBITDA. This ensures the metrics represent a trend rather than a single snapshot in time.
+
+### 2. New Companies Watch List (new_companies_watch_list.csv)
+These are companies that are officially part of the index but lack sufficient history for comparison.
+
+Criteria: Companies with only one SEC filing or missing historical XBRL tags.
+
+Why it matters: While we can see their current financial health, we can't calculate growth metrics. These are separated to keep the "Gold Standard" list focused on companies with verifiable performance trends.
 ## Core Features
 Automated SEC Data Retrieval: Programmatically fetches companyfacts JSON data using normalized CIK (Central Index Key) identifiers.
 
