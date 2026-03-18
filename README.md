@@ -15,3 +15,23 @@ The screener uses raw financial statements to derive: ROIC (Return on Invested C
 Free Cash Flow (FCF): $\text{Operating Cash Flow} - \text{CapEx}$ determines actual liquidity.
 
 Debt-to-EBITDA: Measures leverage by reconstructing EBITDA from Net Income, Interest, Taxes, and Depreciation.YoY Revenue & Earnings Growth: Identifies fundamental momentum.
+## Technical Stack
+Language: Python 3.x
+
+Libraries: Pandas (Data manipulation), Requests (API handling), Time (Rate-limiting compliance).
+
+Data Source: SEC EDGAR RESTful API.
+## How to Run
+Clone the repo: git clone https://github.com/galmontee8/Python-Stock-Screener.git
+
+Install dependencies: pip install pandas requests
+
+Execute the audit: python StockScreener.py
+## Last-Minute Check
+Before you hit "Commit":
+
+Upload the Code: Make sure StockScreener.py is actually in the repo.
+
+Upload the Data: Drop gold_standard_results.csv in there.
+
+The Header: Make sure your GitHub profile has your real name so it matches your resume.
