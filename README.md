@@ -20,7 +20,7 @@ Data Validation Pipeline: Automatically categorizes companies into "Gold Standar
 ## Key Metrics Calculated 
 The screener uses raw financial statements to derive: ROIC (Return on Invested Capital): $\frac{\text{Net Income}}{\text{Debt} + \text{Equity}}$ — measures capital efficiency.
 
-Free Cash Flow (FCF): $\text{Operating Cash Flow} - \text{CapEx}$ determines actual liquidity.
+Free Cash Flow (FCF): $\text{Operating Cash Flow} - (\text{CapEx}$ - \text{Asset Disposals} determines actual liquidity.
 
 Debt-to-EBITDA: Measures leverage by reconstructing EBITDA from Net Income, Interest, Taxes, and Depreciation.YoY Revenue & Earnings Growth: Identifies fundamental momentum.
 ## Technical Stack
