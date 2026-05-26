@@ -36,6 +36,11 @@ Language: Python 3.x
 
 Libraries: Pandas (Data manipulation), Requests (API handling), Time (Rate-limiting compliance).
 
+### Live Dashboard
+Click the image below to interact with the live S&P 600 Screener:
+
+[![S&P 600 Quality vs Leverage Matrix](dashboard_preview.png)](https://datastudio.google.com/u/0/reporting/9b29f470-2782-4102-a678-f398e8732fd3/page/IayyF)
+
 Data Source: SEC EDGAR RESTful API.
 ## How to Run
 Clone the repo: git clone https://github.com/galmontee8/Python-Stock-Screener.git
