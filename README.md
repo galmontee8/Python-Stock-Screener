@@ -43,11 +43,4 @@ Clone the repo: git clone https://github.com/galmontee8/Python-Stock-Screener.gi
 Install dependencies: pip install pandas requests
 
 Execute the audit: python StockScreener.py
-## Last-Minute Check
-Before you hit "Commit":
 
-Upload the Code: Make sure StockScreener.py is actually in the repo.
-
-Upload the Data: Drop gold_standard_results.csv in there.
-
-The Header: Make sure your GitHub profile has your real name so it matches your resume.
