@@ -1,51 +1,48 @@
-# Python-Stock-Screener
-## Overview
-This project is a high-performance data extraction and financial analysis tool built to audit the S&P 600 index. By interfacing directly with the SEC EDGAR API, the script pulls raw XBRL (eXtensible Business Reporting Language) facts to calculate institutional-grade valuation metrics that aren't always available on retail platforms.
-## Data Validation & Output Segmentation
-The core logic of this screener is built on comparative analytics. To calculate growth and efficiency ratios, the script segments the S&P 600 (sp-600-with-ciks.csv) into two distinct groups based on available documentation:
+# Quantitative Stock Screener & BI Dashboard (S&P 600)
 
-### 1. Gold Standard Results (gold_standard_results.csv)
-These are the companies with enough data for a full quantitative audit.
+## Project Overview
+This project is an end-to-end data engineering and financial analysis pipeline. It extracts raw XBRL financial data directly from the SEC's EDGAR database, calculates advanced fundamental metrics, and visualizes the results to identify high-quality, actionable investments within the S&P 600 Small Cap index.
 
-Criteria: Companies with at least two SEC filings (e.g., two 10-K annual reports).
-
-Why it matters: Two filings provide the necessary data points to calculate Year-over-Year (YoY) Growth, ROIC, and Debt-to-EBITDA. This ensures the metrics represent a trend rather than a single snapshot in time.
-
-### 2. New Companies Watch List (new_companies_watch_list.csv)
-These are companies that are officially part of the index but lack sufficient history for comparison.
-
-Criteria: Companies with only one SEC filing or missing historical XBRL tags.
-
-Why it matters: While we can see their current financial health, we can't calculate growth metrics. These are separated to keep the "Gold Standard" list focused on companies with verifiable performance trends.
-## Core Features
-Automated SEC Data Retrieval: Programmatically fetches companyfacts JSON data using normalized CIK (Central Index Key) identifiers.
-
-XBRL Tag Mapping: Maps inconsistent GAAP tags (e.g., Revenues vs SalesRevenueNet) into a standardized data frame.
-
-Quantitative Audit Engine: Calculates year-over-year (YoY) growth and solvency ratios.
-
-Data Validation Pipeline: Automatically categorizes companies into "Gold Standard" (full history), "Watch List" (new/incomplete), or "Skipped" (filing errors).
-## Key Metrics Calculated 
-The screener uses raw financial statements to derive: ROIC (Return on Invested Capital): $\frac{\text{Net Income}}{\text{Debt} + \text{Equity}}$ — measures capital efficiency.
-
-Free Cash Flow (FCF): $\text{Operating Cash Flow} - (\text{CapEx} - \text{Asset Disposals})$ determines actual liquidity.
-
-Debt-to-EBITDA: Measures leverage by reconstructing EBITDA from Net Income, Interest, Taxes, and Depreciation.YoY Revenue & Earnings Growth: Identifies fundamental momentum.
-## Technical Stack
-Language: Python 3.x
-
-Libraries: Pandas (Data manipulation), Requests (API handling), Time (Rate-limiting compliance).
+The goal of this screener is to separate cash-generating, highly efficient businesses from cash-burning, over-leveraged companies using a strict "Quality vs. Leverage" matrix.
 
 ### Live Dashboard
 Click the image below to interact with the live S&P 600 Screener:
 
 [![S&P 600 Quality vs Leverage Matrix](dashboard_preview.png)](https://datastudio.google.com/u/0/reporting/9b29f470-2782-4102-a678-f398e8732fd3/page/IayyF)
 
-Data Source: SEC EDGAR RESTful API.
-## How to Run
-Clone the repo: git clone https://github.com/galmontee8/Python-Stock-Screener.git
+*Note: The dataset is intentionally filtered to isolate actionable equities. Companies with missing, incomplete, or non-standard SEC filings were dropped to ensure strict data integrity.*
 
-Install dependencies: pip install pandas requests
+---
 
-Execute the audit: python StockScreener.py
+## The Tech Stack
+* **Python (Pandas, Requests):** Used for REST API requests, JSON parsing, and dataframe manipulation.
+* **SEC EDGAR API:** The sole source of truth for raw financial data (10-K filings).
+* **Looker Studio:** Used for Business Intelligence (BI) visualization and dynamic filtering.
 
+---
+
+## The ETL Pipeline & Repository Files
+
+### 1. The Engine (`StockScreener.py`)
+This script reads the input file (`sp-600-with-ciks.csv`), pings the SEC API to pull raw JSON data, and dynamically searches for specific US-GAAP tags to calculate:
+* **Return on Invested Capital (ROIC):** To measure operational efficiency.
+* **Free Cash Flow (FCF):** To verify actual cash generation vs. accounting net income.
+* **Debt-to-EBITDA & Current Ratio:** To stress-test solvency and liquidity.
+* **Revenue & Earnings Growth:** To confirm the business is actively scaling.
+
+### 2. The Outputs
+The Python script cleans and formats the messy JSON data into two ready-to-use CSV files:
+* `tableau_perfect_data.csv`: The finalized, strictly-typed dataset formatted specifically for BI tools. 
+* `new_companies_watch_list.csv`: A raw, filtered hit list of the top companies that survived the screener.
+
+### 3. The Dashboard (Looker Studio)
+The `tableau_perfect_data.csv` is loaded into a dynamic Looker Studio dashboard, featuring a scatter plot matrix designed to isolate companies in the "Magic Quadrant" (High ROIC + Low Debt).
+
+---
+
+## How to Run Locally
+1. Clone the repository.
+2. Ensure you have the required libraries installed: `pip install pandas requests`.
+3. Update the `email_contact` parameter in `StockScreener.py` to comply with SEC API rate-limiting rules.
+4. Run `python StockScreener.py` to generate the output CSV files.
+   
